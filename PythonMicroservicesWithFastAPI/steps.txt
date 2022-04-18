@@ -4,3 +4,4 @@ python -m uvicorn main:app --reload
 pip install redis-om
 pip install requests
 python -m uvicorm main:app --reload --port=8001
+python3 consumer.py for both the files 
