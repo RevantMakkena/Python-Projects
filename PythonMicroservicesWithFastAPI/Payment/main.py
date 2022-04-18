@@ -1,6 +1,7 @@
 import imp
 from itertools import product
 from multiprocessing import connection
+import time
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from redis_om import get_redis_connection, HashModel
@@ -44,6 +45,7 @@ async def create(request: Request):  # Send ID, quantity
     req = requests.get("http://localhost:8000/products/{}".format(body['id']))
     
     product = req.json()
+    print(product)
     order = Order(
         product_id = body['id'],
         price=product['price'],
@@ -60,5 +62,6 @@ async def create(request: Request):  # Send ID, quantity
 
 
 def order_completed(order: Order):
+    time.sleep(5)
     order.status = "Completed"
     order.save()
