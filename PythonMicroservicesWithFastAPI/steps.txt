@@ -1,0 +1,6 @@
+pip install fastapi / pip install "fastapi[all]"
+pip install "uvicorn[standard]"
+python -m uvicorn main:app --reload
+pip install redis-om
+pip install requests
+python -m uvicorm main:app --reload --port=8001
