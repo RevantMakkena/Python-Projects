@@ -58,7 +58,7 @@ async def create(request: Request, background_tasks:BackgroundTasks):  # Send ID
 
     order.save()
 
-    background_tasks.add_task(order_completed, order)  
+    background_tasks.add_task(order_completed, order)  # this background task will continue to work, & sends status as pending initially 
     return order
 
 
@@ -66,6 +66,7 @@ def order_completed(order: Order):
     time.sleep(5)
     order.status = "Completed"
     order.save()
+    redis.xadd('order_completed', order.dict(), '*')
 
 
 @app.get('orders/{pk}')
